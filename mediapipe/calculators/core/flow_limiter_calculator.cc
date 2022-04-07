@@ -64,12 +64,14 @@ constexpr char kOptionsTag[] = "OPTIONS";
 // dropping frames.  "ALLOW = true" indicates the start of accepting frames
 // including the current timestamp, and "ALLOW = false" indicates the start of
 // dropping frames including the current timestamp.
+// "ALLOW = true"表示开始接受包含当前时间戳的帧，"ALLOW = false"表示开始丢弃包含当前时间戳的帧。
 //
 // FlowLimiterCalculator provides limited support for multiple input streams.
 // The first input stream is treated as the main input stream and successive
 // input streams are treated as auxiliary input streams.  The auxiliary input
 // streams are limited to timestamps passed on the main input stream.
 //
+// 实时约束机制：在子图的数据之前加入一个FlowLimiterCalculator节点，其根据实时性限制，在节点正在处理的数据包数量超标时，丢弃后续输入的数据包。
 class FlowLimiterCalculator : public CalculatorBase {
  public:
   static absl::Status GetContract(CalculatorContract* cc) {

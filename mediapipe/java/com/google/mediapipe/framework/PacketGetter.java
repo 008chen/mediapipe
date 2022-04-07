@@ -287,6 +287,7 @@ public final class PacketGetter {
    * texture data, and must be released individually.
    */
   public static GraphTextureFrame getTextureFrame(final Packet packet) {
+    logger.atWarning().log("------------GraphTextureFrame-----true-----");
     return new GraphTextureFrame(
         nativeGetGpuBuffer(packet.getNativeHandle(), /* waitOnCpu= */ true), packet.getTimestamp());
   }
@@ -297,6 +298,7 @@ public final class PacketGetter {
    * GraphTextureFrame#getTextureName is called.
    */
   public static GraphTextureFrame getTextureFrameDeferredSync(final Packet packet) {
+        logger.atWarning().log("------------GraphTextureFrame-----fasle-----");
     return new GraphTextureFrame(
         nativeGetGpuBuffer(packet.getNativeHandle(), /* waitOnCpu= */ false),
         packet.getTimestamp());

@@ -17,6 +17,7 @@ input_side_packet: "NUM_HANDS:num_hands"
 # Complexity of hand landmark and palm detection models: 0 or 1. Accuracy as
 # well as inference latency generally go up with the model complexity. If
 # unspecified, functions as set to 1. (int)
+# 手地标和手掌检测模型复杂度:0或1。准确性和推理延迟通常随着模型的复杂性而增加。如果未指定，则函数设置为1。(int)
 input_side_packet: "MODEL_COMPLEXITY:model_complexity"
 
 # Whether landmarks on the previous image should be used to help localize

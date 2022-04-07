@@ -1,4 +1,4 @@
-# Copyright 2020 The MediaPipe Authors.
+# Copyright 2019 The MediaPipe Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,15 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Configuration helper for iOS app bundle ids and provisioning profiles.
-"""
+load("//mediapipe/java/com/google/mediapipe:mediapipe_aar.bzl", "mediapipe_aar")
 
-BUNDLE_ID_PREFIX = "*SEE_IOS_INSTRUCTIONS*.mediapipe.examples"
-
-# Look for a provisioning profile in the example's directory first,
-# otherwise look for a common one.
-def example_provisioning():
-    local_profile = native.glob(["provisioning_profile.mobileprovision"])
-    if local_profile:
-        return local_profile[0]
-    return "//mediapipe/examples/ios:provisioning_profile"
+mediapipe_aar(
+    name = "solution_core",
+    srcs = glob(["**/*.java"]),
+    gen_libmediapipe = False,
+)

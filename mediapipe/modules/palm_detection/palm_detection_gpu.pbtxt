@@ -8,6 +8,7 @@ input_stream: "IMAGE:image"
 # Complexity of the palm detection model: 0 or 1. Accuracy as well as inference
 # latency generally go up with the model complexity. If unspecified, functions
 # as set to 1. (int)
+# 手掌检测模型复杂度:0或1。准确性和推理延迟通常随着模型的复杂性而增加。如果未指定，则函数设置为1.(int)
 input_side_packet: "MODEL_COMPLEXITY:model_complexity"
 
 # Detected palms. (std::vector<Detection>)
@@ -15,6 +16,8 @@ input_side_packet: "MODEL_COMPLEXITY:model_complexity"
 # particular timestamp if none of palms detected. However, the MediaPipe
 # framework will internally inform the downstream calculators of the absence of
 # this packet so that they don't wait for it unnecessarily.
+#发现手掌。(std::向量<Detection>)
+#注意:如果没有检测到手掌，那么在DETECTIONS流中将不会有这个特定时间戳的输出包。但是，MediaPipe框架会在内部通知下游计算器没有这个数据包，这样它们就不必等待它了。
 output_stream: "DETECTIONS:detections"
 
 # Transforms an image into a 256x256 tensor while keeping the aspect ratio, and

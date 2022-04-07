@@ -42,7 +42,7 @@ import java.io.InputStream;
 
 /** Main activity of MediaPipe Hands app. */
 public class MainActivity extends AppCompatActivity {
-  private static final String TAG = "MainActivity";
+  private static final String TAG = "hands-MainActivity-oginin";
 
   private Hands hands;
   // Run the pipeline and the model inference on GPU or CPU.

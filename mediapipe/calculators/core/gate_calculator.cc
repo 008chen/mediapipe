@@ -51,15 +51,19 @@ std::string ToString(GateState state) {
 // input stream. It outputs an output stream for each input stream that is not
 // ALLOW or DISALLOW as well as an optional STATE_CHANGE stream which downstream
 // calculators can use to respond to state-change events.
+// 控制输入数据包是否沿着图继续传递。接受多个数据输入流和ALLOW或DISALLOW控件输入流。
+// 它为每个不允许或不允许的输入流输出一个输出流，以及一个可选的STATE_CHANGE流，下游计算器可以使用它来响应状态变化事件。
 //
 // If the current ALLOW packet is set to true, the input packets are passed to
 // their corresponding output stream unchanged. If the ALLOW packet is set to
 // false, the current input packet is NOT passed to the output stream. If using
 // DISALLOW, the behavior is opposite of ALLOW.
+// 如果当前的ALLOW报文设置为true，输入的报文将不改变传递到相应的输出流;如果ALLOW设置为false，则不将当前输入报文传递到输出流。如果使用DISALLOW，则行为与ALLOW相反。
 //
 // By default, an empty packet in the ALLOW or DISALLOW input stream indicates
 // disallowing the corresponding packets in other input streams. The behavior
 // can be inverted with a calculator option.
+// 缺省情况下，ALLOW或DISALLOW输入流中的空报文表示不允许其他输入流中相应的报文通过。可以使用计算器选项来反转该行为。
 //
 // ALLOW or DISALLOW can also be specified as an input side packet. The rules
 // for evaluation remain the same as above.

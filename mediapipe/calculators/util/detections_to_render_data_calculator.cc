@@ -39,6 +39,7 @@ constexpr char kKeypointLabel[] = "KEYPOINT";
 
 // The ratio of detection label font height to the height of detection bounding
 // box.
+// 检测标签字体高度与检测包围盒高度的比值。
 constexpr double kLabelToBoundingBoxRatio = 0.1;
 // Perserve 2 decimal digits.
 constexpr float kNumScoreDecimalDigitsMultipler = 100;
@@ -47,18 +48,23 @@ constexpr float kNumScoreDecimalDigitsMultipler = 100;
 
 // A calculator that converts Detection proto to RenderData proto for
 // visualization.
+// 一个计算器，将检测原型转换为渲染数据原型。
 //
 // Detection is the format for encoding one or more detections in an image.
 // The input can be std::vector<Detection> or DetectionList.
+// 检测是对图像中的一个或多个检测进行编码的格式。输入可以是std::vector或DetectionList。
 //
 // Please note that only Location Data formats of BOUNDING_BOX and
 // RELATIVE_BOUNDING_BOX are supported. Normalized coordinates for
 // RELATIVE_BOUNDING_BOX must be between 0.0 and 1.0. Any incremental normalized
 // coordinates calculation in this calculator is capped at 1.0.
+// 请注意，只支持位置数据格式的BOUNDING_BOX和RELATIVE_BOUNDING_BOX。
+// RELATIVE_BOUNDING_BOX的归一化坐标必须在0.0和1.0之间。这个计算器中任何增量的标准化坐标计算的上限为1.0。
 //
 // The text(s) for "label(_id),score" will be shown on top left
 // corner of the bounding box. The text for "feature_tag" will be shown on
 // bottom left corner of the bounding box.
+// label(_id),score的文本将显示在包围框的左上角。“feature_tag”的文本将显示在包围框的左下角。
 //
 // Example config:
 // node {

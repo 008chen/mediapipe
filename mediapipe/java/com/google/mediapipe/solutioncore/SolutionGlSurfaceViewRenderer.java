@@ -23,7 +23,7 @@ import com.google.mediapipe.glutil.ShaderUtil;
 import java.util.concurrent.atomic.AtomicReference;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
-
+import android.util.Log;
 /**
  * MediaPipe Solution's GlSurfaceViewRenderer.
  *
@@ -47,6 +47,7 @@ public class SolutionGlSurfaceViewRenderer<T extends ImageSolutionResult>
 
   /** Sets a user-defined {@link ResultGlRenderer} for rendering MediaPipe solution results. */
   public void setSolutionResultRenderer(ResultGlRenderer<T> resultGlRenderer) {
+    Log.d("SolutionGlSurfaceViewRenderer", "setSolutionResultRenderer:" + resultGlRenderer.toString());
     this.resultGlRenderer = resultGlRenderer;
   }
 

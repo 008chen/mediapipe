@@ -202,6 +202,7 @@ class MuxTimedCalculator : public CalculatorBase {
     }
     RET_CHECK_EQ(cc->Outputs().NumEntries(), 1);
     cc->Outputs().Tag(kOutputTag).SetSameAs(data_input0);
+    // 可能是只要有一个input输入后就触发process
     cc->SetTimestampOffset(TimestampDiff(0));
     return absl::OkStatus();
   }

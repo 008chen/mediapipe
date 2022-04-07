@@ -61,6 +61,7 @@ inline bool HasImageTag(mediapipe::CalculatorContext* cc) { return false; }
 }  // namespace
 
 // A calculator for rendering data on images.
+// 在图像上显示数据的计算器。
 //
 // Inputs:
 //  1. IMAGE or IMAGE_GPU (optional): An ImageFrame (or GpuBuffer),
