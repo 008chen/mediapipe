@@ -67,13 +67,16 @@ std::string ToString(GateState state) {
 //
 // ALLOW or DISALLOW can also be specified as an input side packet. The rules
 // for evaluation remain the same as above.
+// ALLOW或DISALLOW也可以指定为输入侧包。评估规则与上面相同。
 //
 // ALLOW/DISALLOW inputs must be specified either using input stream or via
 // input side packet but not both. If neither is specified, the behavior is then
 // determined by the "allow" field in the calculator options.
+//  ALLOW/DISALLOW inputs必须通过输入流或输入端数据包指定，但不能同时指定。如果两者都没有指定，那么行为将由计算器选项中的“允许”字段决定。
 //
 // Intended to be used with the default input stream handler, which synchronizes
 // all data input streams with the ALLOW/DISALLOW control input stream.
+// 用于默认输入流处理程序，该处理程序使用ALLOW/DISALLOW控制输入流同步所有数据输入流。
 //
 // Example config:
 // node {
@@ -102,6 +105,7 @@ class GateCalculator : public CalculatorBase {
     // ALLOW/DISALLOW input.
     if (input_via_side_packet) {
       RET_CHECK(!input_via_stream);
+      // 至少且只能有一个
       RET_CHECK(cc->InputSidePackets().HasTag(kAllowTag) ^
                 cc->InputSidePackets().HasTag(kDisallowTag));
 
@@ -157,6 +161,7 @@ class GateCalculator : public CalculatorBase {
     }
 
     cc->SetOffset(TimestampDiff(0));
+    // data stream has no tag
     num_data_streams_ = cc->Inputs().NumEntries("");
     last_gate_state_ = GATE_UNINITIALIZED;
     RET_CHECK_OK(CopyInputHeadersToOutputs(cc->Inputs(), &cc->Outputs()));
@@ -208,6 +213,7 @@ class GateCalculator : public CalculatorBase {
     if (!allow) {
       // Close the output streams if the gate will be permanently closed.
       // Prevents buffering in calculators whose parents do no use SetOffset.
+      // 如果已经从前一张图片中识别出了足够多的手，则丢弃传入的图像。否则，通过传入的图像，触发新一轮的手掌检测。
       for (int i = 0; i < num_data_streams_; ++i) {
         if (!cc->Outputs().Get("", i).IsClosed() &&
             use_side_packet_for_allow_disallow_) {

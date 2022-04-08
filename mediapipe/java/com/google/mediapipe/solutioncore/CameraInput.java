@@ -26,6 +26,9 @@ import com.google.mediapipe.components.TextureFrameConsumer;
 import com.google.mediapipe.framework.MediaPipeException;
 import com.google.mediapipe.framework.TextureFrame;
 import javax.microedition.khronos.egl.EGLContext;
+import android.content.Context;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.LifecycleOwner;
 
 /**
  * The camera component that takes the camera input and produces MediaPipe {@link TextureFrame}
@@ -55,6 +58,10 @@ public class CameraInput {
   public CameraInput(Activity activity) {
     cameraHelper = new CameraXPreviewHelper();
     PermissionHelper.checkAndRequestCameraPermissions(activity);
+  }
+
+  public CameraInput() {
+    cameraHelper = new CameraXPreviewHelper();
   }
 
   /**
@@ -117,6 +124,37 @@ public class CameraInput {
         /*surfaceTexture=*/ frameTexture,
         (width == 0 || height == 0) ? null : new Size(width, height));
   }
+
+  public void startByService(Context context, EGLContext eglContext, CameraFacing cameraFacing, int width, int height) {
+        if (this.converter == null) {
+            this.converter = new ExternalTextureConverter(eglContext, 2);
+        }
+
+        if (this.newFrameListener == null) {
+            throw new MediaPipeException(MediaPipeException.StatusCode.FAILED_PRECONDITION.ordinal(), "newFrameListener is not set.");
+        } else {
+            this.frameTexture = this.converter.getSurfaceTexture();
+            this.converter.setConsumer(this.newFrameListener);
+            this.cameraHelper.setOnCameraStartedListener((surfaceTexture) -> {
+                if (width != 0 && height != 0) {
+                    this.updateOutputSize(width, height);
+                }
+
+                if (this.customOnCameraStartedListener != null) {
+                    this.customOnCameraStartedListener.onCameraStarted(surfaceTexture);
+                }
+
+            });
+            // this.cameraHelper.startCamera(context, (LifecycleOwner)context,
+            //         cameraFacing == CameraFacing.FRONT ? CameraHelper.CameraFacing.FRONT : CameraHelper.CameraFacing.BACK,
+            //         width != 0 && height != 0 ? new Size(width, height) : null);
+
+            this.cameraHelper.startCamera(context, (LifecycleOwner) context,
+                    cameraFacing == CameraFacing.FRONT ? CameraHelper.CameraFacing.FRONT : CameraHelper.CameraFacing.BACK,
+                    this.frameTexture, width != 0 && height != 0 ? new Size(width, height) : null);
+           
+        }
+    }
 
   /**
    * Sets or updates the size of the output {@link TextureFrame}. Can be invoked by {@code

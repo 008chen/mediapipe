@@ -25,11 +25,13 @@ namespace api2 {
 
 // PreviousLoopbackCalculator is useful when a graph needs to process an input
 // together with some previous output.
+// PreviousLoopbackCalculator在图形需要同时处理输入和以前的输出时很有用。
 //
 // For the first packet that arrives on the MAIN input, the timestamp bound is
 // advanced on the PREV_LOOP. Downstream calculators will see this as an empty
 // packet. This way they are not kept waiting for the previous output, which
 // for the first iteration does not exist.
+// 对于到达MAIN输入的第一个数据包，时间戳绑定在PREV_LOOP上被提前。下游计算器将把它看作一个空包。这样，它们就不会一直等待前面的输出，而前面的输出在第一次迭代中并不存在。
 //
 // Thereafter,
 // - Each non-empty MAIN packet results in:
@@ -38,6 +40,11 @@ namespace api2 {
 //   b) or in a PREV_LOOP timestamp bound update if the LOOP packet was empty.
 // - Each empty MAIN packet indicating timestamp bound update results in a
 //   PREV_LOOP timestamp bound update.
+// 之后,
+// -每个非空的MAIN包的结果是:
+//   a) 一个PREV_LOOP包，其内容是在前一个非空MAIN包的时间戳上接收到的LOOP包
+//   b) 或PREV_LOOP时间戳绑定更新，如果LOOP包为空。
+// -指示时间戳绑定更新的每个空MAIN包都会导致PREV_LOOP时间戳绑定更新。
 //
 // Example config:
 // node {

@@ -53,6 +53,8 @@ class CollectionHasMinSizeCalculator : public CalculatorBase {
             .min_size(),
         0);
 
+
+    // for example :using IterableT = std::vector<mediapipe::NormalizedRect>
     cc->Inputs().Tag("ITERABLE").Set<IterableT>();
     cc->Outputs().Index(0).Set<bool>();
 
