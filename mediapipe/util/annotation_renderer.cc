@@ -523,6 +523,7 @@ void AnnotationRenderer::DrawText(const RenderAnnotation& annotation) {
   int font_size = -1;
 
   const auto& text = annotation.text();
+  // LOG(INFO)<<"text:"<<text.display_text();
   if (text.normalized()) {
     CHECK(NormalizedtoPixelCoordinates(text.left(), text.baseline(),
                                        image_width_, image_height_, &left,

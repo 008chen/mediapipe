@@ -41,6 +41,7 @@ public class MainActivity extends com.google.mediapipe.apps.basic.MainActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+   
 
     ApplicationInfo applicationInfo;
     try {

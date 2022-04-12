@@ -404,7 +404,9 @@ absl::Status AnnotationOverlayCalculator::RenderToGpu(CalculatorContext* cc,
 
   // Upload render target to GPU.
   {
+    // 设置纹理对象的类型
     glBindTexture(GL_TEXTURE_2D, image_mat_tex_);
+    // 替换纹理图像的一部分
     glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width_canvas_, height_canvas_,
                     GL_RGB, GL_UNSIGNED_BYTE, overlay_image);
     glBindTexture(GL_TEXTURE_2D, 0);

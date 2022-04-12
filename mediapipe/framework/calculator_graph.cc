@@ -833,6 +833,8 @@ absl::Status CalculatorGraph::AddPacketToInputStream(
 // const Packet&) and AddPacketToInputStream(Packet &&) by having this
 // internal-only templated version.  T&& is a forwarding reference here, so
 // std::forward will deduce the correct type as we pass along packet.
+// 为了避免AddPacketToInputStream(const packettoinputstream)和AddPacketToInputStream(Packet &&)有两个副本，我们使用了这个内部模板化版本。
+// 这里T&&是一个转发引用，因此std::forward将在我们传递包时推断出正确的类型。
 template <typename T>
 absl::Status CalculatorGraph::AddPacketToInputStreamInternal(
     const std::string& stream_name, T&& packet) {
