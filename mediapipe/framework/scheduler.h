@@ -52,10 +52,12 @@ class Scheduler {
   // Sets the executor that will run the nodes. Must be called before the
   // scheduler is started. This is the normal executor used for nodes that
   // do not use a special one.
+  // 设置将运行nodes的执行器。必须在调度器启动之前调用。这是一个普通的执行器，用于不使用特殊执行器的node。
   void SetExecutor(Executor* executor);
 
   // Sets the executor that will run the nodes assigned to the executor
   // named |name|. Must be called before the scheduler is started.
+  // 设置执行器，该执行器将运行分配给名为| name|的执行器。必须在调度器启动之前调用。
   absl::Status SetNonDefaultExecutor(const std::string& name,
                                      Executor* executor);
 
@@ -94,6 +96,8 @@ class Scheduler {
   // emitted since the previous call. This relies on the fact that the calls are
   // in sequence. Runs application thread tasks while waiting.
   // Returns absl::OutOfRangeError if the graph terminated.
+  // 等待直到任何图形输入流已被解除节流。这意味着由CalculatorGraph::AddPacketToInputStream使用，它需要检查由自己的互斥锁保护的状态。
+  // 该互斥锁保护图形输入流上的节流变化，应该作为secondary_mutex参数传递。这个函数可以被多个线程并发地调用。在等待时运行应用程序线程任务。
   absl::Status WaitForObservedOutput() ABSL_LOCKS_EXCLUDED(state_mutex_);
 
   // Callback that is invoked by a node when it wants to be scheduled.

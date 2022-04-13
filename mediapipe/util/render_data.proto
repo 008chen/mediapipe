@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-syntax = "proto2";
+syntax = "proto2";//声明这是一个proto2文件
 
-package mediapipe;
+package mediapipe;//让你生成的class在这个命名空间里
 
 import "mediapipe/util/color.proto";
 
@@ -22,11 +22,25 @@ import "mediapipe/util/color.proto";
 // face can be rendered using a group of annotations: a bounding box around the
 // face (rectangle) and annotations for various face parts such as eyes, nose
 // etc (2D points).
+ //相当于一个类    
 message RenderData {
-  repeated RenderAnnotation render_annotations = 1;
+  repeated RenderAnnotation render_annotations = 1; //后面这个1表示tag
 
   // An optional string that uniquely identifies this class of annotations.
-  optional string scene_class = 2;
+  optional string scene_class = 2;//像bool, int32, float, double, string这些基本类型都有的
+  
+  //required表示必须有，否则为uninitialized，parse时候会失败
+  // required int32 id = 2; 
+  // enum PhoneType {    //enum也可以有
+  //   MOBILE = 0;
+  //   HOME = 1;
+  //   WORK = 2;
+  // }
+  // message PhoneNumber {    //相当于定义一个inner class
+  //   required string number = 1;
+  //   optional PhoneType type = 2 [default = HOME];
+  // }
+  // repeated PhoneNumber phones = 4;    //repeated表示可以重复多次（包括0）
 
   // An optional viewport to which this set of annotations are intended to be
   // rendered. If left unset, the annotations are meant to render overtop of the
