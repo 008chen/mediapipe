@@ -23,6 +23,7 @@
 namespace mediapipe {
 namespace tool {
 
+//不支持rtti
 #if !MEDIAPIPE_HAS_RTTI
 // A unique identifier for type T.
 class TypeInfo {
@@ -44,6 +45,7 @@ class TypeInfo {
 
 #else  // MEDIAPIPE_HAS_RTTI
 // The std unique identifier for type T.
+// 支持rtti
 class TypeInfo {
  public:
   size_t hash_code() const { return info_.hash_code(); }

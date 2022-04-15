@@ -25,8 +25,10 @@ cc_library(
     name = "mobile_calculators",
     deps = [
         "//mediapipe/calculators/core:flow_limiter_calculator",
+        "//mediapipe/calculators/core:packet_cloner_calculator",
         "//mediapipe/calculators/core:previous_loopback_calculator",
         "//mediapipe/calculators/image:image_transformation_calculator",
+        "//mediapipe/calculators/image:color_slider_calculator",
         "//mediapipe/calculators/image:recolor_calculator",
         "//mediapipe/calculators/image:set_alpha_calculator",
         "//mediapipe/calculators/tflite:tflite_converter_calculator",
@@ -57,5 +59,12 @@ mediapipe_binary_graph(
     name = "mobile_gpu_binary_graph",
     graph = "hair_segmentation_mobile_gpu.pbtxt",
     output_name = "mobile_gpu.binarypb",
+    deps = [":mobile_calculators"],
+)
+
+mediapipe_binary_graph(
+    name = "mobile_gpu_binary_graph_recolor",
+    graph = "hair_segmentation_mobile_gpu_recolor.pbtxt",
+    output_name = "mobile_gpu_recolor.binarypb",
     deps = [":mobile_calculators"],
 )
