@@ -131,6 +131,10 @@ public class ExternalTextureConverter implements TextureFrameProducer {
     thread.setFlipY(flip);
   }
 
+  public void setForceFlipX(boolean flip) {
+    thread.setForceFlipX(flip);
+  }
+
   /**
    * Sets rotation of the texture, useful for supporting landscape orientations. The value should
    * correspond to Display.getRotation(), e.g. Surface.ROTATION_0. Flipping (if any) is applied
@@ -304,6 +308,9 @@ public class ExternalTextureConverter implements TextureFrameProducer {
       renderer.setFlipY(flip);
     }
 
+    public void setForceFlipX(boolean flip) {
+      renderer.setForceFlipX(flip);
+    }
     public void setRotation(int rotation) {
       renderer.setRotation(rotation);
     }

@@ -36,17 +36,21 @@ namespace mediapipe {
 namespace api2 {
 
 // Runs inference on the provided input Tensors and TFLite model.
+// 对提供的输入张量和TFLite模型进行推断。
 //
 // Creates an interpreter with given model and calls invoke().
 // Optionally run inference on CPU/GPU.
+// 使用给定的模型创建一个解释器，并调用invoke()。可选地在CPU/GPU上运行推断。
 //
 // This calculator can be used with TensorConverterCalculator to get the
 // appropriate inputs.
+// 这个计算器可以与TensorConverterCalculator一起使用，以获得适当的输入。
 //
 // When the input tensors are on CPU, gpu inference is optional and can be
 // specified in the calculator options.
 // When the input tensors are on GPU, inference is GPU and output can be CPU or
 // GPU.
+// 当输入张量在CPU上时，gpu推断是可选的，可以在计算器选项中指定。当输入张量在GPU上时，推断为GPU，输出为CPU或GPU。
 //
 // Input:
 //  TENSORS - Vector of Tensors
@@ -91,6 +95,8 @@ namespace api2 {
 // IMPORTANT Notes:
 //  Tensors are assumed to be ordered correctly (sequentially added to model).
 //  Input tensors are assumed to be of the correct size and already normalized.
+//假设张量被正确排序(顺序地添加到模型中)。
+//假设输入张量的大小是正确的，并且已经标准化。
 
 class InferenceCalculator : public NodeIntf {
  public:

@@ -53,6 +53,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.microedition.khronos.egl.EGLSurface;
 
+
 /**
  * Uses CameraX APIs for camera setup and access.
  *
@@ -87,6 +88,8 @@ public class CameraXPreviewHelper extends CameraHelper {
       }
     }
 
+ 
+
     boolean shutdown() {
       return handlerThread.quitSafely();
     }
@@ -94,6 +97,9 @@ public class CameraXPreviewHelper extends CameraHelper {
 
   private static final String TAG = "CameraXPreviewHelper";
 
+  public ProcessCameraProvider getProcessCameraProvider() {
+          return cameraProvider;
+  }
   // Target frame and view resolution size in landscape.
   private static final Size TARGET_SIZE = new Size(1280, 720);
   private static final double ASPECT_TOLERANCE = 0.25;

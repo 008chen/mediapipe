@@ -43,6 +43,7 @@ bool SortBySecond(const std::pair<int, float>& indexed_score_0,
 
 // Removes all but the max scoring label and its score from the detection.
 // Returns true if the detection has at least one label.
+// 从检测中删除除最大得分标签及其得分外的所有标记。如果检测至少有一个标签，则返回true。
 bool RetainMaxScoringLabelOnly(Detection* detection) {
   if (detection->label_id_size() == 0 && detection->label_size() == 0) {
     return false;

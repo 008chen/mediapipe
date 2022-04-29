@@ -38,6 +38,14 @@ public class ExternalTextureRenderer {
           1.0f, 1.0f // top right
           );
 
+  private static final FloatBuffer FLIPPEDX_TEXTURE_VERTICES =
+      ShaderUtil.floatBuffer(
+          1.0f, 0.0f, 
+          0.0f, 0.0f, 
+          1.0f, 1.0f,
+          0.0f, 1.0f
+          );
+
   private static final FloatBuffer FLIPPED_TEXTURE_VERTICES =
       ShaderUtil.floatBuffer(
           0.0f, 1.0f, // top left
@@ -66,6 +74,7 @@ public class ExternalTextureRenderer {
   private int textureTransformUniform;
   private float[] textureTransformMatrix = new float[16];
   private boolean flipY;
+  private boolean forceFlipX;
   private int rotation = Surface.ROTATION_0;
 
   /** Call this to setup the shader program before rendering. */
@@ -90,6 +99,10 @@ public class ExternalTextureRenderer {
    */
   public void setFlipY(boolean flip) {
     flipY = flip;
+  }
+
+  public void setForceFlipX(boolean flip) {
+     forceFlipX = flip;
   }
 
   /**
@@ -136,13 +149,25 @@ public class ExternalTextureRenderer {
         ATTRIB_POSITION, 2, GLES20.GL_FLOAT, false, 0, getPositionVerticies());
 
     GLES20.glEnableVertexAttribArray(ATTRIB_TEXTURE_COORDINATE);
-    GLES20.glVertexAttribPointer(
-        ATTRIB_TEXTURE_COORDINATE,
-        2,
-        GLES20.GL_FLOAT,
-        false,
-        0,
-        flipY ? FLIPPED_TEXTURE_VERTICES : TEXTURE_VERTICES);
+    if(forceFlipX)
+    {
+        GLES20.glVertexAttribPointer(
+                ATTRIB_TEXTURE_COORDINATE,
+                2,
+                GLES20.GL_FLOAT,
+                false,
+                0,
+                FLIPPEDX_TEXTURE_VERTICES);
+    }
+    else{
+      GLES20.glVertexAttribPointer(
+          ATTRIB_TEXTURE_COORDINATE,
+          2,
+          GLES20.GL_FLOAT,
+          false,
+          0,
+          flipY ? FLIPPED_TEXTURE_VERTICES : TEXTURE_VERTICES);
+    }
     ShaderUtil.checkGlError("program setup");
 
     GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 4);

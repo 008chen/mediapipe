@@ -29,6 +29,7 @@ import javax.microedition.khronos.egl.EGLContext;
 import android.content.Context;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LifecycleOwner;
+import androidx.camera.lifecycle.ProcessCameraProvider;
 
 /**
  * The camera component that takes the camera input and produces MediaPipe {@link TextureFrame}
@@ -64,6 +65,9 @@ public class CameraInput {
     cameraHelper = new CameraXPreviewHelper();
   }
 
+  public ProcessCameraProvider getProcessCameraProvider() {
+        return cameraHelper.getProcessCameraProvider();
+  }
   /**
    * Sets a callback to be invoked when new frames available.
    *
@@ -116,6 +120,8 @@ public class CameraInput {
             customOnCameraStartedListener.onCameraStarted(surfaceTexture);
           }
         });
+
+    
     cameraHelper.startCamera(
         activity,
         cameraFacing == CameraFacing.FRONT
@@ -148,7 +154,10 @@ public class CameraInput {
             // this.cameraHelper.startCamera(context, (LifecycleOwner)context,
             //         cameraFacing == CameraFacing.FRONT ? CameraHelper.CameraFacing.FRONT : CameraHelper.CameraFacing.BACK,
             //         width != 0 && height != 0 ? new Size(width, height) : null);
-
+            if(cameraFacing == CameraFacing.BACK)
+            {
+                converter.setForceFlipX(true);
+            }
             this.cameraHelper.startCamera(context, (LifecycleOwner) context,
                     cameraFacing == CameraFacing.FRONT ? CameraHelper.CameraFacing.FRONT : CameraHelper.CameraFacing.BACK,
                     this.frameTexture, width != 0 && height != 0 ? new Size(width, height) : null);

@@ -85,6 +85,7 @@ using GpuBuffer = mediapipe::GpuBuffer;
 // Outputs:
 //   TENSORS - std::vector<Tensor>
 //     Vector containing a single Tensor populated with an extrated RGB image.
+//     数组：包含一个提取的RGB图像的张量。
 //   MATRIX - std::array<float, 16> @Optional
 //     An std::array<float, 16> representing a 4x4 row-major-order matrix that
 //     maps a point on the input image to a point on the output tensor, and
@@ -94,6 +95,8 @@ using GpuBuffer = mediapipe::GpuBuffer;
 //     sides ([left, top, right, bottom]) of the output image, normalized to
 //     [0.f, 1.f] by the output dimensions. The padding values are non-zero only
 //     when the "keep_aspect_ratio" is true.
+//      一个std::array<float, 4> 表示从输出图像的4个边([左，上，右，下]])填充的信箱，
+//      规范化为[0.f, 1.f]根据输出尺寸。只有当"keep_aspect_ratio"为true时，填充值才非零
 //
 //     For instance, when the input image is 10x10 (width x height) and the
 //     output dimensions specified in the calculator option are 20x40 and
@@ -101,6 +104,8 @@ using GpuBuffer = mediapipe::GpuBuffer;
 //     20x20 and places it in the middle of the output image with an equal
 //     padding of 10 pixels at the top and the bottom. The resulting array is
 //     therefore [0.f, 0.25f, 0.f, 0.25f] (10/40 = 0.25f).
+//     例如,当输入图像10 x10(宽度x高度)和计算器选项中指定的输出尺寸20 x40和“keep_aspect_ratio”是true,
+//     计算器调整图片到20 x20并且将输入图像放到输出图像的的中间，在顶部和底部填充的10个像素。因此，结果数组是[0。0.25 f, f, 0。(10/40 = 0.25f)。
 //
 // Example:
 // node {
@@ -219,6 +224,8 @@ class ImageToTensorCalculator : public Node {
         // gracefully by updating timestamp bound instead of returning failure.
         // Timestamp bound update happens automatically. (See Open().)
         // NOTE: usage of sentinel rects should be avoided.
+        //解决方法:一些现有的图形可能使用哨兵矩形{width=0, height=0，…}，
+        // 计算器必须通过更新时间戳来优雅地处理它们，而不是返回失败。时间戳绑定更新会自动进行。(见Open())。注意:应避免使用前哨矩形。
         DLOG(WARNING)
             << "Updating timestamp bound in response to a sentinel rect";
         return absl::OkStatus();

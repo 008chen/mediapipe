@@ -30,7 +30,11 @@ option java_outer_classname = "DetectionProto";
 message Detection {
   // i-th label or label_id has a score encoded by the i-th element in score.
   repeated string label = 1;
+
+  // repeated 代表可重复，我们可以理解为数组
   repeated int32 label_id = 2 [packed = true];
+  
+  // 由于历史原因，数值型的repeated字段后面最好加上[packed=true]，这样能达到更好的编码效果。 repeated int32 samples = 4 [packed=true];
   repeated float score = 3 [packed = true];
 
   // Location data corresponding to all detected labels above.
