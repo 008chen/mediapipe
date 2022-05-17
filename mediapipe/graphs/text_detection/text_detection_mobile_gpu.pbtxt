@@ -1,0 +1,54 @@
+# MediaPipe graph that performs GPU Sobel edge detection on a live video stream.
+# Used in the examples in
+# mediapipe/examples/android/src/java/com/google/mediapipe/apps/basic:helloworld
+# and mediapipe/examples/ios/helloworld.
+
+# Images coming into and out of the graph.
+input_stream: "input_video"
+output_stream: "output_video"
+
+# Converts RGB images into luminance images, still stored in RGB format.
+
+# bilateral_filter_calculator
+node {
+  calculator: "FlowLimiterCalculator"
+  input_stream: "input_video"
+  input_stream: "FINISHED:output_video"
+  input_stream_info: {
+    tag_index: "FINISHED"
+    back_edge: true
+  }
+  output_stream: "throttled_input_video"
+}
+
+node: {
+  calculator: "GpuBufferToImageFrameCalculator"
+  input_stream: "throttled_input_video"
+  output_stream: "input_video_cpu"
+}
+
+node: {
+  calculator: "PaddleCalculator"
+  input_stream: "IMAGE:input_video_cpu"
+  output_stream: "IMAGE:input_video_cpu2"
+}
+
+
+node: {
+  calculator: "ImageFrameToGpuBufferCalculator"
+  input_stream: "input_video_cpu2"
+  output_stream: "output_video"
+}
+
+# node: {
+#   calculator: "LuminanceCalculator"
+#   input_stream: "gpubuffer"
+#   output_stream: "luma_video"
+# }
+
+# # Applies the Sobel filter to luminance images stored in RGB format.
+# node: {
+#   calculator: "SobelEdgesCalculator"
+#   input_stream: "luma_video"
+#   output_stream: "output_video"
+# }

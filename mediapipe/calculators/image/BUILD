@@ -180,6 +180,8 @@ cc_library(
     alwayslink = 1,
 )
 
+
+
 cc_library(
     name = "bilateral_filter_calculator",
     srcs = ["bilateral_filter_calculator.cc"],

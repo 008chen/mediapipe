@@ -1,0 +1,19 @@
+syntax = "proto2";
+
+package mediapipe;
+
+import "mediapipe/framework/calculator.proto";
+
+message PaddleCalculatorOptions {
+
+extend mediapipe.CalculatorOptions {
+
+optional PaddleCalculatorOptions ext = 123456789;
+
+}
+
+optional bool option_parameter_1 = 1 [default = false];
+
+optional float option_parameter_2 = 2;
+
+}

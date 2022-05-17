@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "alignedvector3": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "__locale": "cpp",
+        "ios": "cpp"
     }
 }
