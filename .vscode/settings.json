@@ -3,6 +3,7 @@
         "alignedvector3": "cpp",
         "typeinfo": "cpp",
         "__locale": "cpp",
-        "ios": "cpp"
+        "ios": "cpp",
+        "testh.h": "c"
     }
 }

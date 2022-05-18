@@ -5,6 +5,8 @@
 #include "mediapipe/framework/port/opencv_imgproc_inc.h"
 #include "mediapipe/framework/formats/image_frame_opencv.h"
 
+#include "mediapipe/logxx/testH.h"
+
 namespace mediapipe
 {
 namespace {
@@ -37,7 +39,8 @@ constexpr char kMaxCountTag[] = "MAXCOUNT";
     {
       const auto& options = cc->Options<::mediapipe::PaddleCalculatorOptions>();
       auto var = options.option_parameter_1();
-      LOG(INFO) << "option_parameter_1:"<<var;
+      LOG(INFO) << "option_parameter_1:"<<var<<"xx:"<<vvprints();
+
       return ::mediapipe::OkStatus();
     }
 

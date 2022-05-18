@@ -12,7 +12,7 @@ cc_library(
         # "//mediapipe/framework/port:integral_types",
         # "//mediapipe/framework/port:logging",
         "//mediapipe/framework/port:opencv_imgproc",
-
+        "//mediapipe/logxx:logxx",
     ],
     alwayslink = 1,
 )
@@ -33,3 +33,9 @@ mediapipe_cc_proto_library(
     visibility = ["//visibility:public"],
     deps = [":paddle_calculator_proto"],
 )
+
+# cc_import(                             
+#     name = "logxx",
+#     hdrs = ["//mediapipe/lib/testH.h"],
+#     shared_library = "//mediapipe/lib/libtest.so",
+# )
