@@ -12,6 +12,7 @@ cc_library(
         # "//mediapipe/framework/port:integral_types",
         # "//mediapipe/framework/port:logging",
         "//mediapipe/framework/port:opencv_imgproc",
+        "//mediapipe/framework/port:opencv_core",
         "//mediapipe/logxx:logxx",
     ],
     alwayslink = 1,

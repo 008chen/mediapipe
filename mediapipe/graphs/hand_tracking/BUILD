@@ -73,6 +73,7 @@ mediapipe_binary_graph(
     deps = [":mobile_calculators"],
 )
 
+
 cc_library(
     name = "detection_mobile_calculators",
     deps = [
@@ -89,3 +90,5 @@ mediapipe_binary_graph(
     output_name = "hand_detection_mobile_gpu.binarypb",
     deps = [":detection_mobile_calculators"],
 )
+
+

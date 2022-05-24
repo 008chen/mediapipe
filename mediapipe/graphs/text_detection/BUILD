@@ -26,6 +26,7 @@ cc_library(
         "//mediapipe/calculators/core:flow_limiter_calculator",
         "//mediapipe/calculators/image:luminance_calculator",
         "//mediapipe/calculators/image:sobel_edges_calculator",
+        "//mediapipe/calculators/image:color_convert_calculator",
     ],
 )
 

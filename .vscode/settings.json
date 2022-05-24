@@ -4,6 +4,7 @@
         "typeinfo": "cpp",
         "__locale": "cpp",
         "ios": "cpp",
-        "testh.h": "c"
+        "testh.h": "c",
+        "vector": "cpp"
     }
 }

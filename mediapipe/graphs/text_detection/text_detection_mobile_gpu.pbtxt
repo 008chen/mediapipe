@@ -21,6 +21,13 @@ node {
   output_stream: "throttled_input_video"
 }
 
+# node: {
+#   calculator: "LuminanceCalculator"
+#   input_stream: "throttled_input_video"
+#   output_stream: "luma_video"
+# }
+
+
 node: {
   calculator: "GpuBufferToImageFrameCalculator"
   input_stream: "throttled_input_video"
@@ -33,6 +40,13 @@ node: {
   output_stream: "IMAGE:input_video_cpu2"
 }
 
+# node: {
+#   calculator: "ColorConvertCalculator"
+#   input_stream: "RGB_IN:input_video_cpu"
+#   output_stream: "GRAY_OUT:input_video_cpu2"
+# }
+
+
 
 node: {
   calculator: "ImageFrameToGpuBufferCalculator"
@@ -40,11 +54,7 @@ node: {
   output_stream: "output_video"
 }
 
-# node: {
-#   calculator: "LuminanceCalculator"
-#   input_stream: "gpubuffer"
-#   output_stream: "luma_video"
-# }
+
 
 # # Applies the Sobel filter to luminance images stored in RGB format.
 # node: {

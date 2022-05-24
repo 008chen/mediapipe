@@ -76,9 +76,11 @@ public class MainActivity extends com.google.mediapipe.apps.basic.MainActivity {
                     + packet.getTimestamp()
                     + "] "
                     + getMultiHandLandmarksDebugString(multiHandLandmarks));
+            // logfps();
           });
     }
   }
+
 
   private String getMultiHandLandmarksDebugString(List<NormalizedLandmarkList> multiHandLandmarks) {
     if (multiHandLandmarks.isEmpty()) {

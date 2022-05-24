@@ -81,6 +81,7 @@ public class SolutionGlSurfaceViewRenderer<T extends ImageSolutionResult>
   @Override
   public void onDrawFrame(GL10 gl) {
     TextureFrame frame = null;
+    Log.d(TAG,"onDrawFrame!!!!");
     if (renderInputImage) {
       frame = renderFrame();
     } else {

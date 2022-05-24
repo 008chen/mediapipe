@@ -232,6 +232,7 @@ public class FrameProcessor implements TextureFrameProcessor, AudioDataProcessor
                 }
                 consumer.onNewFrame(frame);
               }
+              logfps();
             }
           });
 
@@ -423,12 +424,28 @@ public class FrameProcessor implements TextureFrameProcessor, AudioDataProcessor
     return true;
   }
 
+
+  int lastFrameIndex=0;
+  long lastFrameTime;
+  private void logfps()
+  {
+    lastFrameIndex++;
+     if (lastFrameIndex >= 30) {
+          final int fps = (int) (lastFrameIndex * 1e9 / (System.nanoTime() - lastFrameTime));
+          Log.v(TAG,Integer.toString(fps) + " (fps)");
+          lastFrameIndex = 0;
+          lastFrameTime = System.nanoTime();
+    }
+  }
+
+
   @Override
   public void onNewFrame(TextureFrame frame) {
     Packet imagePacket = null;
     long timestamp = frame.getTimestamp();
     try {
       if (Log.isLoggable(TAG, Log.VERBOSE)) {
+        logfps();
         Log.v(
             TAG,
             String.format(
